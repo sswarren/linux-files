@@ -1,0 +1,31 @@
+# Tools
+#alias ll='ls -l --color'
+alias dir='ls -AFogh --color=auto'
+alias ll='ls -AFog --time-style=+%Y/%m/%d-%H:%M:%S --color=auto'
+alias pd=cd_func
+alias dif='/c/Tools/BeyondCompare3/BCompare.exe'
+#alias difc='dif'
+alias cpt='cp --preserve=time'
+alias vi='vim'
+
+# Workspace management
+
+# Dev environment management
+alias j6="setjava JAVA6_HOME"
+alias j7="setjava JAVA7_HOME"
+
+# Locations
+# alias gothere='pd $there'
+
+#alias npp='/c/Tools/notepad++/notepad++.exe'
+alias mvnci='mvn clean install'
+alias mvnx='mvn -DskipTests=true clean install'
+
+alias pb='export pb=$(git rev-parse --show-toplevel)'
+
+alias d0="git diff -w v1.7.117 --diff-filter=ACMRTUXB --staged"
+alias d0n="d0 --name-only"
+
+# alias qadb="ssh -f user@proxyhost -L local_port:remote_host:remote_port -N"
+
+alias ips="ipconfig | egrep 'Suffix.*\.com|IPv4'"

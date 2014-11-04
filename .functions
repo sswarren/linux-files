@@ -1,0 +1,89 @@
+# load function cd_func -- a cd/pushd replacement
+if [ -f "${HOME}/.cd_func" ]; then
+  source "${HOME}/.cd_func"
+fi
+
+files()
+{
+  find $@ -type f
+}
+
+jar-manifest ()
+{
+  local file
+  for file in $@; do
+    unzip -p $file META-INF/MANIFEST.MF
+  done
+}
+
+jar-version ()
+{
+    jar-manifest $@ | grep "Implementation-Version"
+}
+
+switch ()
+{
+  local file=${1?missing file}
+  local src=${2?missing from}
+  local dst=${3?missing to}
+  # Switch file ($file) from one suffix (_$src,assumed) to another (_$dst)
+  echo Switching from file $file_$src to $file_$dst
+  echo mv -i $file $file_$src && echo mv $file_$dst $file
+  mv -i $file $file_$src && mv $file_$dst $file
+}
+
+mkrw ()
+{
+  # Copy file from dev folder to local installed folder
+  local file=${1?Missing filename}
+  test -f $file && chmod u+rw $file
+}
+
+readDirstack()
+{
+  while read line; do echo : $line; done < .dirStack
+}
+
+cpfile ()
+{
+  local file=${1?"Missing filename"}
+  if [[ -n "$src" ]] && [[ -n "$dst" ]]; then
+    cp -v $src/$file $dst/$file
+  else
+    echo '$src or $dst not set!'
+  fi
+
+}
+
+capture()
+{
+  local src=${1?Missing capture source}
+  src=${src%%/}
+  if [[ ! -d arch ]]; then echo creating arch folder; mkdir arch; fi
+  local target="arch/${src}$(date +'-%Y%m%d-%H%M')"
+  zip -r ${target} ${src}
+  echo "zip file: ${target}"
+}
+
+path()
+{
+  local IFS=:
+  eval printf "%s\\\n" \$${1:-PATH}
+}
+
+setjava()
+{
+  local newJava=${1?New Java not specified}
+  local oldJavaHome=$JAVA_HOME
+  local newJavaHome=${!newJava}
+  if [[ -n "$newJavaHome" && -n "$oldJavaHome" ]]; then
+    local oldJavaHomeCyg=$(cygpath $JAVA_HOME)
+    local newJavaHomeCyg=$(cygpath $newJavaHome)
+    PATH=${PATH//"$oldJavaHomeCyg"/"$newJavaHomeCyg"}
+    JAVA_HOME=$newJavaHome
+  else
+    echo "Error:  missing JAVA_HOME or ${newJava} environment variable"
+    return 1
+  fi
+}
+

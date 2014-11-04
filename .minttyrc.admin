@@ -1,0 +1,6 @@
+BoldAsFont=no
+BackgroundColour=64,0,0
+ForegroundColour=255,255,255
+Transparency=low
+OpaqueWhenFocused=no
+CursorType=block
