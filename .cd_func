@@ -24,29 +24,41 @@ cd_func ()
     # Extract dir N from dirs
     index=${the_new_dir:1}
     case "$index" in
+    # Show usage
     "h")
-      echo help/usage
+      echo "Manage directories"
+      echo "  dirname   Switch to the named directory, pushing on the stack"
+      echo "  -         Switch to the previous directory (same as no argument)"
+      echo "  --        Show the current directory stack"
+      echo "  -c        Clear the current directory stack"
+      echo "  -d        List the saved directory stacks"
+      echo "  -s [name] Save the current directory stack (with optional name)"
+      echo "  -l [name] Load the optionally-named directory stack"
       return 0
       ;;
+    # Clear the current directory stack
     "c")
       dirs -c
       return 0
       ;;
+    # List the saved directory stacks
     "d")
-      ls -1 $HOME/*.dirStack
+      ls -1 $HOME/.dirStack $HOME/*.dirStack 2> /dev/null
       return 0
       ;;
+    # Save the current directory stack (optional name)
     "s")
       local file="$HOME/.dirStack"
       if [[ $# > 1 ]]; then
         file="$HOME/$2.dirStack"
       fi
       pushd . >> /dev/null
-      echo "${DIRSTACK[*]:1}" > $file
+      echo "$PWD ${DIRSTACK[*]:1}" > $file
       popd >> /dev/null
       echo "Saved directory stack ($file)"
       return 0
       ;;
+    # Load a directory stack (optional name)
     "l")
       local file="$HOME/.dirStack"
       if [[ $# > 1 ]]; then
