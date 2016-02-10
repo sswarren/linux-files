@@ -1,7 +1,5 @@
 # load function cd_func -- a cd/pushd replacement
-if [ -f "${HOME}/.cd_func" ]; then
-  source "${HOME}/.cd_func"
-fi
+test -s ~/bash/.cd_func && . ~/bash/.cd_func
 
 files()
 {
@@ -87,3 +85,15 @@ setjava()
   fi
 }
 
+personalize()
+{
+  local host=${1?Missing host name}
+  local user=${2:+$USER@}
+  host="$user$host"
+
+  ssh ${host} "mkdir -p ~/bash"
+  #scp ~/bash/.bashrc ${host}:
+  scp ~/.bashrc ${host}:
+  #scp ~/bash/min.bashrc ${host}:bash/my.bashrc
+  scp ~/bash/my.bashrc ~/bash/.alias ~/bash/.functions ~/bash/.cd_func ${host}:bash
+}
