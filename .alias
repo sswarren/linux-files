@@ -7,6 +7,8 @@ alias dif='/c/Tools/BeyondCompare3/BCompare.exe'
 #alias difc='dif'
 alias cpt='cp --preserve=time'
 alias vi='vim'
+alias pull='git pull -r=preserve'
+alias open='cygstart'
 
 # Workspace management
 
@@ -18,6 +20,7 @@ alias j7="setjava JAVA7_HOME"
 # alias gothere='pd $there'
 
 #alias npp='/c/Tools/notepad++/notepad++.exe'
+alias npp='cygstart /c/tools/Notepad++/notepad++'
 alias mvnci='mvn clean install'
 alias mvnx='mvn -DskipTests=true clean install'
 
@@ -29,3 +32,4 @@ alias d0n="d0 --name-only"
 # alias qadb="ssh -f user@proxyhost -L local_port:remote_host:remote_port -N"
 
 alias ips="ipconfig | egrep 'Suffix.*\.com|IPv4'"
+

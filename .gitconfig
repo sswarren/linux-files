@@ -1,0 +1,15 @@
+[user]
+	name = Steve Warren
+	email = swarren@rei.com
+[alias]
+	chlog = log --cherry --name-status --color --pretty=format:'%C(red bold)%h% %Creset %C(yellow)%d%Creset %s %Cgreen(%cr by %an)%Creset'
+	graphlog = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	unpushed = log origin/master..HEAD --name-status --color --pretty=format:'%C(red bold)%h% %Creset %C(yellow)%d%Creset %s %C(green bold)(%cr by %an)%Creset'
+	incoming = log HEAD..origin/master --name-status --color --pretty=format:'%C(red bold)%h% %Creset %C(yellow)%d%Creset %s %C(green bold)(%cr by %an)%Creset'
+	st = status
+	br = rev-parse --abbrev-ref HEAD
+[core]
+	autocrlf = true
+	whitespace = fix,tab-in-indent,trailing-space,cr-at-eol
+[push]
+	default = simple
