@@ -33,3 +33,4 @@ alias d0n="d0 --name-only"
 
 alias ips="ipconfig | egrep 'Suffix.*\.com|IPv4'"
 
+alias gitalias="git config --get-regexp ^alias\. | awk -F^alias\. '{ print \$2}'"
