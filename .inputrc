@@ -5,7 +5,7 @@
 # with this software. 
 # If not, see <http://creativecommons.org/publicdomain/zero/1.0/>. 
 
-# base-files version 4.1-1
+# base-files version 4.2-4
 
 # ~/.inputrc: readline initialization file.
 
@@ -40,6 +40,9 @@
 # VT220
 "\eOH": beginning-of-line
 "\eOF": end-of-line
+
+"\e[1;5C": forward-word   # ctrl + right
+"\e[1;5D": backward-word  # ctrl + left
 
 # Allow 8-bit input/output
 #set meta-flag on
