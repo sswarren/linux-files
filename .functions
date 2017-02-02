@@ -97,6 +97,13 @@ personalize()
   #scp ~/bash/min.bashrc ${host}:bash/my.bashrc
   scp ~/bash/my.bashrc ~/bash/.alias ~/bash/.functions ~/bash/.cd_func ${host}:bash
 }
+
+jgrep()
+{
+  egrep -r --include '*.java' $* .
+}
+
+
 gitbranch()
 {
   git rev-parse --abbrev-ref HEAD 2> /dev/null

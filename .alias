@@ -1,4 +1,5 @@
 # Tools
+alias view="vi -R"
 #alias ll='ls -l --color'
 alias dir='ls -AFogh --color=auto'
 alias ll='ls -AFog --time-style=+%Y/%m/%d-%H:%M:%S --color=auto'
