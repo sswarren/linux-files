@@ -11,7 +11,8 @@
 	alias = "config --get-regexp ^alias\."
 [core]
 	#autocrlf = true
-	autocrlf = false
+	#autocrlf = false
+	autocrlf = input
 	whitespace = fix,tab-in-indent,trailing-space,cr-at-eol
 [push]
 	default = simple
