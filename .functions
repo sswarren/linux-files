@@ -1,5 +1,6 @@
 # load function cd_func -- a cd/pushd replacement
 test -s ~/bash/.cd_func && . ~/bash/.cd_func
+test -s ~/bash/rei_functions.sh && . ~/bash/rei_functions.sh
 
 files()
 {
@@ -108,3 +109,4 @@ gitbranch()
 {
   git rev-parse --abbrev-ref HEAD 2> /dev/null
 }
+
