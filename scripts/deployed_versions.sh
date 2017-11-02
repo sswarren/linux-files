@@ -1,4 +1,8 @@
+# use !/bin/bash
+# use !/usr/bin/env bash
 #$ ssh -q -o StrictHostKeyChecking=no ulvaqsrdh04.rei.com "sudo docker ps -f name=\"f.*_test_\" --format \"{{.Names}} | {{.Image}}\" | sort"
+
+echo "bash version $BASH_VERSION"
 
 solrStack()
 { 
@@ -11,6 +15,15 @@ solrStack()
 
 parseDeploymentToVersions()
 {
+  declare -A dockerPatternMap
+  dockerPatternMap[ZooKeeper]=".*zookeeper-docker:"
+  dockerPatternMap[Solr]=".*solr-docker:"
+  dockerPatternMap[Fusion]=".*fusion-docker:"
+  dockerPatternMap[FindTuner-Proxy]=".*findtuner-proxy_.*findtuner-proxy-docker:"
+  dockerPatternMap[FindTuner-Proxy-JQV]=".*findtuner-proxy-jqv-docker:"
+  dockerPatternMap[FindTuner-Proxy-Articles]=".*findtuner-proxy-articles*findtuner-proxy-docker:"
+  dockerPatternMap[FindTuner-UI]=".*findtuner-jetty-docker:"
+
   # Sample docker list
   : <<'END_COMMENT'
 findtuner-jetty_test_b_2 | docker-registry.rei.com/findtuner-jetty-docker:2.7.0v18
@@ -28,19 +41,13 @@ END_COMMENT
 
   local versionString=""
   local componentVersion
-  for x in \
-    ".*zookeeper-docker:" \
-    ".*solr-docker:" \
-    ".*fusion-docker:" \
-    ".*findtuner-proxy_.*findtuner-proxy-docker:" \
-    ".*findtuner-proxy-jqv-docker:" \
-    ".*findtuner-proxy-articles*findtuner-proxy-docker:" \
-    ".*findtuner-jetty-docker:"
+  for key in ZooKeeper Solr Fusion FindTuner-Proxy FindTuner-Proxy-JQV FindTuner-Proxy-Articles FindTuner-UI
   do
+    local x=${dockerPatternMap[$key]}
     versionPlus=$(echo "$solrStack" | egrep -o "^$x.*\$")
     version="${versionPlus##*:}"
     if [[ -n "$version" ]]; then
-      echo "component: $x -- version: '$version'" >&2
+      echo "component: ${key} -- version: '$version'" >&2
     fi
     versionString="$versionString${version}/"
   done
