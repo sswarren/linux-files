@@ -1,8 +1,6 @@
-# use !/bin/bash
-# use !/usr/bin/env bash
-#$ ssh -q -o StrictHostKeyChecking=no ulvaqsrdh04.rei.com "sudo docker ps -f name=\"f.*_test_\" --format \"{{.Names}} | {{.Image}}\" | sort"
+#!/usr/bin/env bash
 
-echo "bash version $BASH_VERSION"
+#echo "bash version $BASH_VERSION"
 
 solrStack()
 { 
@@ -15,14 +13,15 @@ solrStack()
 
 parseDeploymentToVersions()
 {
-  declare -A dockerPatternMap
-  dockerPatternMap[ZooKeeper]=".*zookeeper-docker:"
-  dockerPatternMap[Solr]=".*solr-docker:"
-  dockerPatternMap[Fusion]=".*fusion-docker:"
-  dockerPatternMap[FindTuner-Proxy]=".*findtuner-proxy_.*findtuner-proxy-docker:"
-  dockerPatternMap[FindTuner-Proxy-JQV]=".*findtuner-proxy-jqv-docker:"
-  dockerPatternMap[FindTuner-Proxy-Articles]=".*findtuner-proxy-articles*findtuner-proxy-docker:"
-  dockerPatternMap[FindTuner-UI]=".*findtuner-jetty-docker:"
+  declare -A dockerPatternMap=(
+     [ZooKeeper]=".*zookeeper-docker:"
+     [Solr]=".*solr-docker:"
+     [Fusion]=".*fusion-docker:"
+     [FindTuner-Proxy]=".*findtuner-proxy_.*findtuner-proxy-docker:"
+     [FindTuner-Proxy-JQV]=".*findtuner-proxy-jqv-docker:"
+     [FindTuner-Proxy-Articles]=".*findtuner-proxy-articles*findtuner-proxy-docker:"
+     [FindTuner-UI]=".*findtuner-jetty-docker:"
+  )
 
   # Sample docker list
   : <<'END_COMMENT'
