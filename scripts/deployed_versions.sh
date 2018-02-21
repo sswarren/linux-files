@@ -18,16 +18,12 @@ parseDeploymentToVersions()
      [Solr]=".*solr-docker:"
      [Fusion]=".*fusion-docker:"
      [FindTuner-Proxy]=".*findtuner-proxy_.*findtuner-proxy-docker:"
-     [FindTuner-Proxy-JQV]=".*findtuner-proxy-jqv-docker:"
-     [FindTuner-Proxy-Articles]=".*findtuner-proxy-articles*findtuner-proxy-docker:"
      [FindTuner-UI]=".*findtuner-jetty-docker:"
   )
 
   # Sample docker list
   : <<'END_COMMENT'
 findtuner-jetty_test_b_2 | docker-registry.rei.com/findtuner-jetty-docker:2.7.0v18
-findtuner-proxy-articles_test_b_2 | docker-registry.rei.com/findtuner-proxy-docker:2.7.0v1
-findtuner-proxy-jqv_test_b_2 | docker-registry.rei.com/findtuner-proxy-jqv-docker:2.7.0v1
 findtuner-proxy_test_b_2 | docker-registry.rei.com/findtuner-proxy-docker:2.7.0v1
 fusion-solr_test_b_2 | docker-registry.rei.com/solr-docker:6.6.0v4
 fusion_test_b_2 | docker-registry.rei.com/fusion-docker:2.4.1v18
@@ -40,7 +36,7 @@ END_COMMENT
 
   local versionString=""
   local componentVersion
-  for key in ZooKeeper Solr Fusion FindTuner-Proxy FindTuner-Proxy-JQV FindTuner-Proxy-Articles FindTuner-UI
+  for key in ZooKeeper Solr Fusion FindTuner-Proxy FindTuner-UI
   do
     local x=${dockerPatternMap[$key]}
     versionPlus=$(echo "$solrStack" | egrep -o "^$x.*\$")
