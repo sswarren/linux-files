@@ -70,6 +70,19 @@ path()
   eval printf "%s\\\n" \$${1:-PATH}
 }
 
+sortComma()
+{
+  local IFS=,
+  eval printf "%s\\\n" $@ | sort -u
+}
+
+group()
+{
+  IFS=',' read -ra ADDR <<< $(id ${1:-})
+  echo "Groups"
+  for i in "${ADDR[@]}"; do echo "  $i"; done | sort -t'(' -k2
+}
+
 setjava()
 {
   local newJava=${1?New Java not specified}
@@ -101,7 +114,8 @@ personalize()
 
 jgrep()
 {
-  egrep -r --include '*.java' $* .
+  #egrep -r --include '*.java' $@ .
+  egrep -r --include '*.java' "$@" .
 }
 
 
@@ -109,4 +123,3 @@ gitbranch()
 {
   git rev-parse --abbrev-ref HEAD 2> /dev/null
 }
-
