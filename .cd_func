@@ -7,6 +7,8 @@
 # Updated by Steve Warren to add save/load of directory stack.
 cd_func ()
 {
+  local dirStackHome="$HOME/.dirStack"
+  local defaultStackName="default"
   local x2 the_new_dir adir index
   local -i cnt
 
@@ -43,14 +45,14 @@ cd_func ()
       ;;
     # List the saved directory stacks
     "d")
-      ls -1 $HOME/.dirStack $HOME/*.dirStack 2> /dev/null
+      ls -1 ${dirStackHome} 2> /dev/null
       return 0
       ;;
     # Save the current directory stack (optional name)
     "s")
-      local file="$HOME/.dirStack"
+      local file="${dirStackHome}/${defaultStackName}"
       if [[ $# > 1 ]]; then
-        file="$HOME/$2.dirStack"
+        file="${dirStackHome}/$2"
       fi
       pushd . >> /dev/null
       #echo "$PWD ${DIRSTACK[*]:1}" > $file
@@ -61,9 +63,9 @@ cd_func ()
       ;;
     # Load a directory stack (optional name)
     "l")
-      local file="$HOME/.dirStack"
+      local file="${dirStackHome}/${defaultStackName}"
       if [[ $# > 1 ]]; then
-        file="$HOME/$2.dirStack"
+        file="${dirStackHome}/$2"
       fi
       read -a DirArray < $file
       dirs -c

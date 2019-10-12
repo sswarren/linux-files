@@ -8,7 +8,8 @@
 	incoming = log HEAD..origin/master --name-status --color --pretty=format:'%C(red bold)%h% %Creset %C(yellow)%d%Creset %s %C(green bold)(%cr by %an)%Creset'
 	st = status
 	br = rev-parse --abbrev-ref HEAD
-	alias = "config --get-regexp ^alias\."
+	#aliases = "config --get-regexp ^alias\."
+	alias = config --get-regexp ^alias.
 [core]
 	#autocrlf = true
 	#autocrlf = false

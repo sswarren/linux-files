@@ -1,8 +1,11 @@
 # Tools
 alias view="vi -R"
 #alias ll='ls -l --color'
-alias dir='ls -AFogh --color=auto'
-alias ll='ls -AFog --time-style=+%Y/%m/%d-%H:%M:%S --color=auto'
+# Cygwin-friendly ls command
+#alias dir='ls -AFogh --color=auto'
+# Mac-friendly ls command
+alias dir='ls -AFoGh'
+alias ll='gls -AFog --time-style=+%Y/%m/%d-%H:%M:%S --color=auto'
 alias pd=cd_func
 alias dif='/c/Tools/BeyondCompare3/BCompare.exe'
 #alias difc='dif'
@@ -14,8 +17,8 @@ alias open='cygstart'
 # Workspace management
 
 # Dev environment management
-alias j6="setjava JAVA6_HOME"
-alias j7="setjava JAVA7_HOME"
+alias j8="sdk use java 8.0.222-amzn"
+alias j11="sdk use java 11.0.2-open"
 
 # Locations
 # alias gothere='pd $there'
